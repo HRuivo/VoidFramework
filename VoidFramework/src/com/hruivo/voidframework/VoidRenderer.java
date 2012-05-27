@@ -3,6 +3,8 @@ package com.hruivo.voidframework;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.hruivo.voidframework.inputs.TouchPanel;
+
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 
@@ -35,8 +37,6 @@ public class VoidRenderer implements Renderer {
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-		
-		
 	}	
 
 }
