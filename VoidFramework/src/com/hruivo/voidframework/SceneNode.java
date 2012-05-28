@@ -16,6 +16,13 @@ public class SceneNode extends Mesh {
 			children.get(i).draw(gl);
 	}
 	
+	@Override
+	public void update(float dt) {
+		int size = children.size();
+		for (int i = 0; i < size; i++)
+			children.get(i).update(dt);
+	}
+	
 	public void add(int location, Mesh object) {
 		children.add(location, object);
 	}

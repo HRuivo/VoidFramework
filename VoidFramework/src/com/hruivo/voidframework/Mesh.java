@@ -22,6 +22,11 @@ public class Mesh {
 	public Vector3 Rotation;
 	
 	
+	public Mesh() {
+		Position = new Vector3();
+		Rotation = new Vector3();
+	}
+	
 	protected void setVertices(float[] vertices) {
 		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
 		vbb.order(ByteOrder.nativeOrder());
@@ -39,7 +44,7 @@ public class Mesh {
 		numOfIndices = indices.length;
 	}
 	
-	protected void setColor(float red, float green, float blue, float alpha) {
+	public void setColor(float red, float green, float blue, float alpha) {
 		rgba[0] = red;
 		rgba[1] = green;
 		rgba[2] = blue;
@@ -68,6 +73,7 @@ public class Mesh {
 				gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
 			}
 			
+			gl.glLoadIdentity();
 			gl.glTranslatef(Position.X, Position.Y, Position.Z);
 			gl.glRotatef(Rotation.X, 1, 0, 0);
 			gl.glRotatef(Rotation.Y, 0, 1, 0);
@@ -77,6 +83,10 @@ public class Mesh {
 			
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisable(GL10.GL_CULL_FACE);
+	}
+	
+	public void update(float dt) {
+		
 	}
 	
 }

@@ -14,8 +14,14 @@ import android.view.Window;
 import android.view.WindowManager;
 
 public abstract class VoidActivity extends Activity implements SensorEventListener {
-
+	
+	private SceneNode scene = null;
+	
+	
 	protected abstract void initialize();
+	protected abstract void update(float dt);
+	protected abstract void draw();
+	
 	
 	@Override
 	protected final void onCreate(Bundle savedInstanceState) {
@@ -25,10 +31,27 @@ public abstract class VoidActivity extends Activity implements SensorEventListen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         
+        // Initialize Scene
+        this.scene = new SceneNode();
+        
+        // Initialize View and Renderer
         GLSurfaceView view = new GLSurfaceView(this);
-        view.setRenderer(new VoidRenderer());
+        view.setRenderer(new VoidRenderer(this, this.scene));
         setContentView(view);
+	
+        
+        initialize();
+        // TODO: scene.initialize();
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		// initialize();
+		// TODO: scene.onResume();
+	}
+	
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -47,6 +70,15 @@ public abstract class VoidActivity extends Activity implements SensorEventListen
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	/**
+	 * Gets the current scene.
+	 * @return The current scene's root node.
+	 */
+	public SceneNode getScene() {
+		return this.scene;
 	}
 	
 }
