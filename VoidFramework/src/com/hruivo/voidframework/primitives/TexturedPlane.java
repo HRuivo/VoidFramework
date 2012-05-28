@@ -10,19 +10,22 @@ public class TexturedPlane extends Mesh {
 	
 	public TexturedPlane(float width, float height) {
 		// Mapping coordinates for the vertices
-		float textureCoordinates[] = { 0.0f, 0.0f, //
-				0.0f, 1.0f, //
-				1.0f, 1.0f, //
-				1.0f, 0.0f, //
+		float textureCoordinates[] = {
+				0.0f, 0.0f, //
+				0.0f, height/2, //
+				width/2, height/2, //
+				width/2, 0.0f, //
 		};
- 
+		
 		short[] indices = new short[] { 0, 1, 2, 0, 2, 3 };
- 
+		
+		width /= 2;
+		height /= 2;
         float[] vertices = new float[] {
-        		-1.0f,  1.0f, 0.0f,  // 0, Top Left
-        		-1.0f, -1.0f, 0.0f,  // 1, Bottom Left
-        		 1.0f, -1.0f, 0.0f,  // 2, Bottom Right
-       			 1.0f,  1.0f, 0.0f};  // 3, Top Right };
+        		-width,  height, 0.0f,  // 0, Top Left
+        		-width, -height, 0.0f,  // 1, Bottom Left
+        		width, -height, 0.0f,  // 2, Bottom Right
+        		width,  height, 0.0f};  // 3, Top Right };
          
 		setIndices(indices);
 		setVertices(vertices);

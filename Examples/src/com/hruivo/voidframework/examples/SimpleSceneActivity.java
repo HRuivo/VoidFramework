@@ -27,7 +27,7 @@ public class SimpleSceneActivity extends VoidActivity {
 		cubeB.setColor(1, 0, 0, 1);
 		getScene().add(cubeB);
 		
-		plane = new TexturedPlane(5, 5);
+		plane = new TexturedPlane(2, 2);
 		plane.Position.Z = -5;
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.tex_grid);
