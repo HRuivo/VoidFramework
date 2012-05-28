@@ -7,6 +7,9 @@ import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.graphics.Bitmap;
+import android.opengl.GLUtils;
+
 
 public class Mesh {
 
@@ -16,6 +19,11 @@ public class Mesh {
 	
 	private float[] rgba = new float[] { 1.0f, 1.0f, 1.0f, 1.0f };
 	private FloatBuffer colorBuffer = null;
+	
+	private FloatBuffer textureBuffer = null;
+	private int textureId = -1;
+	private Bitmap bitmap;
+	private boolean shouldLoadTexture = false;
 	
 	
 	public Vector3 Position;
@@ -59,6 +67,44 @@ public class Mesh {
 		colorBuffer.position(0);
 	}
 	
+	protected void setTextureCoordinates(float[] textureCoords) {
+		ByteBuffer tbb = ByteBuffer.allocateDirect(textureCoords.length * 4);
+		tbb.order(ByteOrder.nativeOrder());
+		textureBuffer = tbb.asFloatBuffer();
+		textureBuffer.put(textureCoords);
+		textureBuffer.position(0);
+	}
+	
+	public void loadBitmap(Bitmap bmp) {
+		this.bitmap = bmp;
+		shouldLoadTexture = true;
+	}
+	
+	private void loadGlTexture(GL10 gl) {
+		int[] textures = new int[1];
+		gl.glGenTextures(1, textures, 0);
+		textureId = textures[0];
+		
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
+		
+		// Create Nearest Filtered Texture
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,
+				GL10.GL_LINEAR);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER,
+				GL10.GL_LINEAR);
+	 
+		// Different possible texture parameters, e.g. GL10.GL_CLAMP_TO_EDGE
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
+				GL10.GL_CLAMP_TO_EDGE);
+		gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
+				GL10.GL_REPEAT);
+		
+		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
+		
+		bitmap.recycle();
+		bitmap = null;
+	}
+	
 	public void draw(GL10 gl) {
 		gl.glFrontFace(GL10.GL_CCW);
 		gl.glEnable(GL10.GL_CULL_FACE);
@@ -73,6 +119,18 @@ public class Mesh {
 				gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
 			}
 			
+			if(shouldLoadTexture) {
+				loadGlTexture(gl);
+				shouldLoadTexture = false;
+			}
+			if(textureId != -1 && textureBuffer != null) {
+				gl.glEnable(GL10.GL_TEXTURE_2D);
+				gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+				
+				gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textureBuffer);
+				gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
+			}
+			
 			gl.glLoadIdentity();
 			gl.glTranslatef(Position.X, Position.Y, Position.Z);
 			gl.glRotatef(Rotation.X, 1, 0, 0);
@@ -80,6 +138,10 @@ public class Mesh {
 			gl.glRotatef(Rotation.Z, 0, 0, 1);
 			
 			gl.glDrawElements(GL10.GL_TRIANGLES, numOfIndices, GL10.GL_UNSIGNED_SHORT, indicesBuffer);
+			
+			if(textureId != -1 && textureBuffer != null) {
+				gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+			}
 			
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisable(GL10.GL_CULL_FACE);

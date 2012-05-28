@@ -8,6 +8,7 @@ import android.view.WindowManager;
 
 public abstract class VoidActivity extends Activity {
 	
+	private VoidSurfaceView voidSurfaceView = null;
 	private SceneNode scene = null;
 	
 	
@@ -27,10 +28,16 @@ public abstract class VoidActivity extends Activity {
         this.scene = new SceneNode();
         
         // Initialize View and Renderer
-        setContentView(new VoidSurfaceView(this));
-        
+        setContentView((voidSurfaceView = new VoidSurfaceView(this)));
+		        
         initialize();
-        // TODO: scene.initialize();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		voidSurfaceView.onPause();
 	}
 	
 	@Override
@@ -39,6 +46,8 @@ public abstract class VoidActivity extends Activity {
 		
 		// initialize();
 		// TODO: scene.onResume();
+		
+		voidSurfaceView.onResume();
 	}
 	
 	/**

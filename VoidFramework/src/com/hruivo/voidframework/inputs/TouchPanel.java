@@ -23,11 +23,13 @@ public final class TouchPanel {
 		return currentMotionEvent == null ? false : currentMotionEvent.getAction() == MotionEvent.ACTION_DOWN;
 	}
 	
-	/*public static boolean isTouchDown(Rect region) {
+	public static boolean isTouchDown(Rect region) {
+		if(currentMotionEvent == null) return false;
+		
 		if(currentMotionEvent.getAction() == MotionEvent.ACTION_DOWN || currentMotionEvent.getAction() == MotionEvent.ACTION_MOVE)
 			return region.contains((int)currentMotionEvent.getX(), (int)currentMotionEvent.getY());
 		else return false;
-	}*/
+	}
 	
 	public static boolean isTouchUp() {
 		return currentMotionEvent == null ? false : currentMotionEvent.getAction() == MotionEvent.ACTION_UP;

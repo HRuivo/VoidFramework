@@ -14,7 +14,6 @@ public class VoidRenderer implements Renderer {
 	private SceneNode scene = null;
 	// Activity
 	private VoidActivity activity = null;
-	
 		
 	private float[] clearColor = { 0.0f, 0.0f, 0.0f };
 	
@@ -53,14 +52,16 @@ public class VoidRenderer implements Renderer {
 		// update scene
 		scene.update(0.0f);
 
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);	
-	
-		// Draw
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+		
 		gl.glLoadIdentity();
+		
 		// draw activity
 		activity.draw();
 		// draw scene
 		scene.draw(gl);
+	
+		gl.glDisable(GL10.GL_TEXTURE_2D);
 	}
 	
 	
