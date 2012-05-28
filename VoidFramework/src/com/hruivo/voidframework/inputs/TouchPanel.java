@@ -12,24 +12,24 @@ public final class TouchPanel {
 	}
 	
 	public static int getAction() {
-		return currentMotionEvent.getAction();
+		return currentMotionEvent == null ? -1 : currentMotionEvent.getAction();
 	}
 	
 	public static boolean hasAction(int action) {
-		return currentMotionEvent.getAction() == action;
+		return currentMotionEvent == null ? false : currentMotionEvent.getAction() == action;
 	}
 	
 	public static boolean isTouchDown() {
-		return currentMotionEvent.getAction() == MotionEvent.ACTION_DOWN;
+		return currentMotionEvent == null ? false : currentMotionEvent.getAction() == MotionEvent.ACTION_DOWN;
 	}
 	
-	public static boolean isTouchDown(Rect region) {
+	/*public static boolean isTouchDown(Rect region) {
 		if(currentMotionEvent.getAction() == MotionEvent.ACTION_DOWN || currentMotionEvent.getAction() == MotionEvent.ACTION_MOVE)
 			return region.contains((int)currentMotionEvent.getX(), (int)currentMotionEvent.getY());
 		else return false;
-	}
+	}*/
 	
 	public static boolean isTouchUp() {
-		return currentMotionEvent.getAction() == MotionEvent.ACTION_UP;
+		return currentMotionEvent == null ? false : currentMotionEvent.getAction() == MotionEvent.ACTION_UP;
 	}
 }

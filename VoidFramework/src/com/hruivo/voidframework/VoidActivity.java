@@ -1,19 +1,12 @@
 package com.hruivo.voidframework;
 
-import com.hruivo.voidframework.inputs.TouchPanel;
-
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-public abstract class VoidActivity extends Activity implements SensorEventListener {
+public abstract class VoidActivity extends Activity {
 	
 	private SceneNode scene = null;
 	
@@ -21,7 +14,6 @@ public abstract class VoidActivity extends Activity implements SensorEventListen
 	protected abstract void initialize();
 	protected abstract void update(float dt);
 	protected abstract void draw();
-	
 	
 	@Override
 	protected final void onCreate(Bundle savedInstanceState) {
@@ -35,10 +27,7 @@ public abstract class VoidActivity extends Activity implements SensorEventListen
         this.scene = new SceneNode();
         
         // Initialize View and Renderer
-        GLSurfaceView view = new GLSurfaceView(this);
-        view.setRenderer(new VoidRenderer(this, this.scene));
-        setContentView(view);
-	
+        setContentView(new VoidSurfaceView(this));
         
         initialize();
         // TODO: scene.initialize();
@@ -51,27 +40,6 @@ public abstract class VoidActivity extends Activity implements SensorEventListen
 		// initialize();
 		// TODO: scene.onResume();
 	}
-	
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		TouchPanel.update(event);
-		
-		return super.onTouchEvent(event);
-	}
-	
-	@Override
-	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	/**
 	 * Gets the current scene.
