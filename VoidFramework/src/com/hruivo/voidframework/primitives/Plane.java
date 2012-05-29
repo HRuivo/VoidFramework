@@ -60,5 +60,18 @@ public class Plane extends Mesh {
 		setVertices(vertices);
 		setTextureCoordinates(textureCoordinates);
 	}
+	
+	public void setTextureTilling(int u, int v) {
+		if(u <= 0) u = 1;
+		if(v <= 0) v = 1;
+		float textureCoords[] = {
+			0.0f, 0.0f,
+			0.0f, v,
+			u,    0.0f,
+			u,    v,
+		};
+		
+		setTextureCoordinates(textureCoords);
+	}
 
 }

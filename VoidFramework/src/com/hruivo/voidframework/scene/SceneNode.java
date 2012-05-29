@@ -1,8 +1,10 @@
-package com.hruivo.voidframework;
+package com.hruivo.voidframework.scene;
 
 import java.util.Vector;
 
 import javax.microedition.khronos.opengles.GL10;
+
+import com.hruivo.voidframework.Mesh;
 
 public class SceneNode extends Mesh {
 	

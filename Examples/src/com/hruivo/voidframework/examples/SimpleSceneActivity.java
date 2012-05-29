@@ -20,18 +20,19 @@ public class SimpleSceneActivity extends VoidActivity {
 		cubeA = new Cube(1,1,1);
 		cubeA.Position = new Vector3(2, 0, -5);
 		cubeA.setColor(0, 0, 1, 1);
-		//getScene().add(cubeA);
+		getScene().add(cubeA);
 		
 		cubeB = new Cube(1,0.5f,1);
 		cubeB.Position = new Vector3(-2, 0, -5);
 		cubeB.setColor(1, 0, 0, 1);
-		//getScene().add(cubeB);
+		getScene().add(cubeB);
 		
 		plane = new Plane(2.0f, 2.0f, 1, 1);
 		plane.Position.Z = -5;
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.tex_grid);
 		plane.loadBitmap(bitmap);
+		plane.setTextureTilling(5, 5);
 		getScene().add(plane);
 	}
 	

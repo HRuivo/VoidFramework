@@ -16,7 +16,7 @@ public class VoidSurfaceView extends GLSurfaceView {
 		try {
 			VoidActivity activity = (VoidActivity)context;
 			
-			setRenderer(new VoidRenderer(activity, activity.getScene()));	
+			setRenderer(new VoidRenderer(activity));
 		} catch (Exception e) {
 			Log.d("VOIDSURFACE", "error while creating renderer");
 		}

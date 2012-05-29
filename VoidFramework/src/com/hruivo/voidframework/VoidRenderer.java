@@ -3,6 +3,8 @@ package com.hruivo.voidframework;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.hruivo.voidframework.scene.Scene;
+
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 
@@ -10,17 +12,17 @@ public class VoidRenderer implements Renderer {
 	
 	private GL10 _gl = null;
 	
-	// Scene root
-	private SceneNode scene = null;
+	// Scene
+	private Scene scene = null;
+	
 	// Activity
 	private VoidActivity activity = null;
 		
 	private float[] clearColor = { 0.0f, 0.0f, 0.0f };
 	
 	
-	public VoidRenderer(VoidActivity activity, SceneNode sceneRoot) {
+	public VoidRenderer(VoidActivity activity) {
 		this.activity = activity;
-		this.scene = sceneRoot;
 	}
 	
 	@Override
@@ -31,6 +33,11 @@ public class VoidRenderer implements Renderer {
 		gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glDepthFunc(GL10.GL_LEQUAL);
 		gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
+		
+		scene = new Scene(gl);
+		activity.setScene(scene);
+		
+		activity.initialize();
 		
 		_gl = gl;
 	}
@@ -48,9 +55,9 @@ public class VoidRenderer implements Renderer {
 	@Override
 	public void onDrawFrame(GL10 gl) {
 		// update activity
-		activity.update(0.0f);
+		activity.update(1.0f);
 		// update scene
-		scene.update(0.0f);
+		scene.update(1.0f);
 
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 		

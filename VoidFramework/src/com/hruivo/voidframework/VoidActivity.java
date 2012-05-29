@@ -1,5 +1,7 @@
 package com.hruivo.voidframework;
 
+import com.hruivo.voidframework.scene.Scene;
+
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -9,7 +11,7 @@ import android.view.WindowManager;
 public abstract class VoidActivity extends Activity {
 	
 	private VoidSurfaceView voidSurfaceView = null;
-	private SceneNode scene = null;
+	private Scene scene = null;
 	
 	
 	protected abstract void initialize();
@@ -23,14 +25,9 @@ public abstract class VoidActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        
-        // Initialize Scene
-        this.scene = new SceneNode();
-        
+                
         // Initialize View and Renderer
         setContentView((voidSurfaceView = new VoidSurfaceView(this)));
-		        
-        initialize();
 	}
 	
 	@Override
@@ -54,8 +51,17 @@ public abstract class VoidActivity extends Activity {
 	 * Gets the current scene.
 	 * @return The current scene's root node.
 	 */
-	public SceneNode getScene() {
+	public Scene getScene() {
 		return this.scene;
+	}
+	
+	/**
+	 * Internally sets the scene. Called from VoidRender
+	 * as soon as it creates a new scene.
+	 * @param scene
+	 */
+	void setScene(Scene scene) {
+		this.scene = scene;
 	}
 	
 }
