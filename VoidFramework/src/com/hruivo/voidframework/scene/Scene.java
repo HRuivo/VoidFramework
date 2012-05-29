@@ -61,4 +61,9 @@ public class Scene {
 		return sceneNodes.size();
 	}
 	
+	
+	public CameraManager getCameraManager() {
+		return this.cameraManager;
+	}
+	
 }

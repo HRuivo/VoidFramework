@@ -131,13 +131,14 @@ public class Mesh {
 				gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
 			}
 			
-			gl.glLoadIdentity();
-			gl.glTranslatef(Position.X, Position.Y, Position.Z);
-			gl.glRotatef(Rotation.X, 1, 0, 0);
-			gl.glRotatef(Rotation.Y, 0, 1, 0);
-			gl.glRotatef(Rotation.Z, 0, 0, 1);
-			
-			gl.glDrawElements(GL10.GL_TRIANGLES, numOfIndices, GL10.GL_UNSIGNED_SHORT, indicesBuffer);
+			gl.glPushMatrix();
+				gl.glTranslatef(Position.X, Position.Y, Position.Z);
+				gl.glRotatef(Rotation.X, 1, 0, 0);
+				gl.glRotatef(Rotation.Y, 0, 1, 0);
+				gl.glRotatef(Rotation.Z, 0, 0, 1);			
+				
+				gl.glDrawElements(GL10.GL_TRIANGLES, numOfIndices, GL10.GL_UNSIGNED_SHORT, indicesBuffer);
+			gl.glPopMatrix();
 			
 			if(textureId != -1 && textureBuffer != null) {
 				gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
