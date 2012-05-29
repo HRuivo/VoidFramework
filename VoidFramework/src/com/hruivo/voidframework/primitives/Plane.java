@@ -13,19 +13,19 @@ public class Plane extends Mesh {
 	}
 
 	public Plane(float width, float height, int widthSegments, int heightSegments) {
+		
 		float[] vertices = new float[(widthSegments + 1) * (heightSegments + 1)
 				* 3];
 		short[] indices = new short[(widthSegments + 1) * (heightSegments + 1)
 				* 6];
 
-		float xOffset = width / 2;
-		float yOffset = height / 2;
-		float xWidth = width / widthSegments;
-		float yHeight = height / heightSegments;
+		float xOffset = width / -2;
+		float yOffset = height / -2;
+		float xWidth = width / (widthSegments);
+		float yHeight = height / (heightSegments);
 		int currentVertex = 0;
 		int currentIndex = 0;
 		short w = (short) (widthSegments + 1);
-
 		for (int y = 0; y < heightSegments + 1; y++) {
 			for (int x = 0; x < widthSegments + 1; x++) {
 				vertices[currentVertex] = xOffset + x * xWidth;
@@ -49,9 +49,16 @@ public class Plane extends Mesh {
 				}
 			}
 		}
+
+		float textureCoordinates[] = {
+				0.0f, 0.0f,
+				0.0f, heightSegments,
+				widthSegments, 0.0f,
+				widthSegments, heightSegments, };
 		
 		setIndices(indices);
 		setVertices(vertices);
+		setTextureCoordinates(textureCoordinates);
 	}
-	
+
 }
