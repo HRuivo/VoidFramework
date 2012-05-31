@@ -1,5 +1,7 @@
 package com.hruivo.voidframework.cameras;
 
+import android.util.Log;
+
 import com.hruivo.voidframework.Vector3;
 
 public class VoidCamera {
@@ -14,6 +16,9 @@ public class VoidCamera {
 	
 	public float fov;
 	public float zNear, zFar;
+	
+	public double Pitch = 0.0f;
+	public double Yaw = 0.0f;
 	
 	static int numCameras = 0;
 	
@@ -31,7 +36,18 @@ public class VoidCamera {
 	}
 	
 	public void update(float dt) {
+		Target.X = (float)(Math.sin(Yaw) * Math.cos(Pitch));
+		Target.Y = (float)(Math.sin(Pitch));
+		Target.Z = (float)(-Math.cos(Yaw) * Math.cos(Pitch));
+	
+		/*Position.X += speed * Target.X;
+		Position.Y += speed * Target.Y;
+		Position.Z += speed * Target.Z;*/
 		
+		if(Math.cos(Pitch) < 0.0f)
+			Up.Y = -1.0f;
+		else
+			Up.Y = 1.0f;
 	}
 	
 	public String getName() {

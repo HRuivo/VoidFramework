@@ -2,10 +2,7 @@ package com.hruivo.voidframework.examples;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.method.Touch;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.RemoteViews.ActionException;
 
 import com.hruivo.voidframework.Vector3;
 import com.hruivo.voidframework.cameras.VoidCamera;

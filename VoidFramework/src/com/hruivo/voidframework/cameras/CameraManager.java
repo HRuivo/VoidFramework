@@ -25,15 +25,17 @@ public final class CameraManager {
 	}
 
 	public void update(float dt) {
+		currentCamera.update(dt);
+		
 		gl.glLoadIdentity();
 		GLU.gluLookAt(gl,
 				currentCamera.Position.X,
 				currentCamera.Position.Y,
 				currentCamera.Position.Z,
 
-				currentCamera.Target.X,
-				currentCamera.Target.Y,
-				currentCamera.Target.Z,
+				currentCamera.Position.X + currentCamera.Target.X,
+				currentCamera.Position.Y +currentCamera.Target.Y,
+				currentCamera.Position.Z +currentCamera.Target.Z,
 
 				currentCamera.Up.X,
 				currentCamera.Up.Y,
