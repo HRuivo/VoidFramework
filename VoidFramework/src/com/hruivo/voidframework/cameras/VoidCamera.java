@@ -1,7 +1,5 @@
 package com.hruivo.voidframework.cameras;
 
-import android.util.Log;
-
 import com.hruivo.voidframework.Vector3;
 
 public class VoidCamera {
