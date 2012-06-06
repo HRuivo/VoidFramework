@@ -106,7 +106,7 @@ public class Mesh {
 	}
 	
 	public void draw(GL10 gl) {
-		gl.glFrontFace(GL10.GL_CW);
+		gl.glFrontFace(GL10.GL_CCW);
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glCullFace(GL10.GL_BACK);
 		

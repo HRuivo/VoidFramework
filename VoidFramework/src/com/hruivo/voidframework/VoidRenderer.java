@@ -7,7 +7,6 @@ import com.hruivo.voidframework.scene.Scene;
 
 import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
-import android.util.Log;
 
 public class VoidRenderer implements Renderer {
 	

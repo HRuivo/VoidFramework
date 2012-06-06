@@ -10,7 +10,7 @@ public class Sprite extends Mesh {
 				 10.0f,  10.0f, 0.0f
 				 };
 		
-		short[] indices = new short[] { 0, 1, 2, 0, 2, 3 };
+		short[] indices = new short[] { 0, 2, 1, 0, 3, 2 };
 		
 		float[] texCoords = new float[] {
 			1.0f, 1.0f,
